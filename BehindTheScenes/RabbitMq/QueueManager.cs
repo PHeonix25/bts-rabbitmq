@@ -17,18 +17,18 @@ namespace BehindTheScenes.RabbitMq
 
     public class QueueManager : IQueueManager
     {
-        private readonly IConnection _connection;
+        private readonly IChannelFactory _channelFactory;
         private readonly IDictionary<string, IModel> _channelMap = new Dictionary<string, IModel>();
 
-        public QueueManager(string exchangeName, IConnection connection)
+        public QueueManager(string exchangeName, IChannelFactory channelFactory)
         {
             ExchangeName = exchangeName;
-            _connection = connection;
+            _channelFactory = channelFactory;
         }
 
         public string ExchangeName { get; }
 
-        public IModel CreateSendingChannel() => _connection.CreateModel();
+        public IModel CreateSendingChannel() => _channelFactory.GetChannel();
 
         public IModel GetReceivingChannel(string queueName)
         {
@@ -38,7 +38,7 @@ namespace BehindTheScenes.RabbitMq
                 channel = _channelMap[queueName];
             else
             {
-                channel = _connection.CreateModel();
+                channel = _channelFactory.GetChannel();
                 _channelMap.Add(queueName, channel);
             }
 
@@ -50,7 +50,7 @@ namespace BehindTheScenes.RabbitMq
             foreach (var channel in _channelMap.Values)
                 channel.Dispose();
 
-            _connection.Dispose();
+            _channelFactory.Dispose();
 
             GC.SuppressFinalize(this);
         }

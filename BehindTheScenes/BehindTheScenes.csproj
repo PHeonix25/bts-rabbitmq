@@ -50,6 +50,7 @@
     <Compile Include="MessageTypes\Response.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RabbitMq\ChannelFactory.cs" />
     <Compile Include="RabbitMq\ChannelWrapper.cs" />
     <Compile Include="RabbitMq\QueueManager.cs" />
   </ItemGroup>
