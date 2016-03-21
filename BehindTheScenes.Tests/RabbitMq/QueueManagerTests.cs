@@ -1,4 +1,8 @@
-﻿using BehindTheScenes.RabbitMq;
+﻿using System;
+
+using BehindTheScenes.RabbitMq;
+
+using FluentAssertions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -7,23 +11,23 @@ using Moq;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
 
+using Xunit;
+
 namespace BehindTheScenes.Tests.RabbitMq
 {
-    [TestClass]
     public class QueueManagerTests
     {
-        private IFixture _fixture;
-        private string _routingKey;
+        private readonly IFixture _fixture;
+        private readonly string _routingKey;
         private QueueManager _sut;
 
-        [TestInitialize]
-        public void Setup()
+        public QueueManagerTests()
         {
             _fixture = new Fixture().Customize(new AutoConfiguredMoqCustomization());
             _routingKey = _fixture.Create<string>();
         }
 
-        [TestMethod]
+        [Fact]
         public void GetReceivingChannel_FirstCall_ShouldCallFactory()
         {
             var factoryMock = _fixture.Freeze<Mock<IChannelFactory>>();
@@ -35,7 +39,7 @@ namespace BehindTheScenes.Tests.RabbitMq
             factoryMock.Verify(f => f.GetChannel(), Times.Once());
         }
 
-        [TestMethod]
+        [Fact]
         public void GetReceivingChannel_SecondCall_ShouldNotCallFactory()
         {
             var factoryMock = _fixture.Freeze<Mock<IChannelFactory>>();
@@ -48,7 +52,19 @@ namespace BehindTheScenes.Tests.RabbitMq
             factoryMock.Verify(f => f.GetChannel(), Times.Once());
         }
 
-        [TestMethod]
+        [Theory, InlineData(null), InlineData(default(string))]
+        public void GetReceivingChannel_WithInvalidRoutingKeys_ShouldFail(string routingKey)
+        {
+            var factoryMock = _fixture.Freeze<Mock<IChannelFactory>>();
+
+            _sut = _fixture.Create<QueueManager>();
+
+            Action act = () => _sut.GetReceivingChannel(routingKey);
+
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Fact]
         public void CreateSendingChannel_FirstCall_ShouldCallFactory()
         {
             var factoryMock = _fixture.Freeze<Mock<IChannelFactory>>();
