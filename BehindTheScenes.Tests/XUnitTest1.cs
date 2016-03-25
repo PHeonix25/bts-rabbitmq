@@ -10,8 +10,7 @@ namespace BehindTheScenes.Tests
             Assert.Equal(true, true);
         }
 
-        [Theory]
-        [InlineData(true)]
+        [Theory, InlineData(true)]
         public void PassingTestWithInput(bool input)
         {
             Assert.Equal(true, input);

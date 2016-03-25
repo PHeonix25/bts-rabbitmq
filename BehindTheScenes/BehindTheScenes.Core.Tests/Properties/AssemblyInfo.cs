@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly:AssemblyTitle("BehindTheScenes.Tests")]
+[assembly:AssemblyTitle("BehindTheScenes.Core.Tests")]
 [assembly:AssemblyDescription("")]
 [assembly:AssemblyConfiguration("")]
 [assembly:AssemblyCompany("")]
-[assembly:AssemblyProduct("BehindTheScenes.Tests")]
+[assembly:AssemblyProduct("BehindTheScenes.Core.Tests")]
 [assembly:AssemblyCopyright("Copyright ©  2016")]
 [assembly:AssemblyTrademark("")]
 [assembly:AssemblyCulture("")]
@@ -22,7 +22,7 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
-[assembly:Guid("d2e3bf66-f4e0-475f-8e13-2ceaa6da6528")]
+[assembly:Guid("64ae2594-b6fc-49f8-9e37-2d97afff5fcd")]
 
 // Version information for an assembly consists of the following four values:
 //
