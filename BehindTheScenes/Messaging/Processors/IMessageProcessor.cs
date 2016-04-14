@@ -1,6 +1,4 @@
-﻿using System;
-
-using RabbitMQ.Client.Events;
+﻿using RabbitMQ.Client.Events;
 
 namespace BehindTheScenes.Messaging.Processors
 {

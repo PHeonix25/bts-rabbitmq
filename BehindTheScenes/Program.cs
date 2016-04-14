@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 using BehindTheScenes.Core.RabbitMq;
@@ -26,15 +25,16 @@ namespace BehindTheScenes
             };
 
             var container = new UnityContainer().AddNewExtension<Bootstrapper>();
-            
+
             Task.Factory.StartNew(() =>
             {
                 Task.Factory.StartNew(container.Resolve<IReceivingCoordinator>().ActionMessage);
                 Task.Factory.StartNew(() =>
                 {
                     var communicator = container.Resolve<IRabbitMqCommunicator>();
-                    foreach (var message in Enumerable.Range(1, 500)
-                                                     .Select(i => $"Hello World! Message {i}. Sent at [{DateTime.UtcNow}]"))
+                    foreach(var message in Enumerable.Range(1, 500)
+                                                     .Select(
+                                                         i => $"Hello World! Message {i}. Sent at [{DateTime.UtcNow}]"))
                     {
                         communicator.Send(message);
                         Console.WriteLine($" SENT \t`{message}`");

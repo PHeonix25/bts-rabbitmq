@@ -4,8 +4,6 @@ using BehindTheScenes.Messaging.Processors;
 
 using Microsoft.Practices.Unity;
 
-using Newtonsoft.Json;
-
 using static System.Configuration.ConfigurationManager;
 
 namespace BehindTheScenes
