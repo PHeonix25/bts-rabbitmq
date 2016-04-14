@@ -13,7 +13,7 @@ namespace BehindTheScenes
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        static void Main(string[] args)
         {
             AppDomain.CurrentDomain.UnhandledException += (_, a) =>
             {

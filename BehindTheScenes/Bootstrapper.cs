@@ -1,12 +1,10 @@
-﻿using System.ComponentModel;
-
-using BehindTheScenes.Core.RabbitMq;
+﻿using BehindTheScenes.Core.RabbitMq;
 using BehindTheScenes.Messaging;
 using BehindTheScenes.Messaging.Processors;
 
-using Coolblue.Utils.Json;
-
 using Microsoft.Practices.Unity;
+
+using Newtonsoft.Json;
 
 using static System.Configuration.ConfigurationManager;
 
@@ -16,8 +14,6 @@ namespace BehindTheScenes
     {
         protected override void Initialize()
         {
-            Container.RegisterType<IJsonSerializer, JsonSerializer>();
-
             Container.RegisterType<IRabbitMqFactory, RabbitMqFactory>(
                 new InjectionConstructor(AppSettings["RabbitMqHostname"]));
 

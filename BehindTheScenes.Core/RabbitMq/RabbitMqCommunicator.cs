@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Threading;
 
-using Coolblue.Utils.Json;
+using Newtonsoft.Json;
 
 using RabbitMQ.Client.Events;
 
@@ -16,12 +15,10 @@ namespace BehindTheScenes.Core.RabbitMq
     public class RabbitMqCommunicator : IRabbitMqCommunicator
     {
         private readonly IRabbitMqChannelOperator _channelOperator;
-        private readonly IJsonSerializer _jsonSerializer;
 
-        public RabbitMqCommunicator(IRabbitMqChannelOperator channelOperator, IJsonSerializer jsonSerializer)
+        public RabbitMqCommunicator(IRabbitMqChannelOperator channelOperator)
         {
             _channelOperator = channelOperator;
-            _jsonSerializer = jsonSerializer;
         }
 
         public void Receive(Action<BasicDeliverEventArgs> action)
@@ -31,7 +28,7 @@ namespace BehindTheScenes.Core.RabbitMq
 
         public void Send<T>(T message)
         {
-            var serialisedMessage = _jsonSerializer.Serialize(message);
+            var serialisedMessage = JsonConvert.SerializeObject(message);
             _channelOperator.PublishMessage(serialisedMessage);
         }
     }
