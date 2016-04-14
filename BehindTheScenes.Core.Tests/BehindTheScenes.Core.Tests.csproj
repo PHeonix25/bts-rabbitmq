@@ -115,7 +115,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BehindTheScenes.Core\BehindTheScenes.Core.csproj">
+    <ProjectReference Include="..\BehindTheScenes.Core\BehindTheScenes.Core.csproj">
       <Project>{C5DDB733-3FA8-4150-B7E0-F1784197A116}</Project>
       <Name>BehindTheScenes.Core</Name>
     </ProjectReference>

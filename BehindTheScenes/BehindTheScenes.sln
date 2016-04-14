@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BehindTheScenes.Core", "..\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DD247D89-FD4C-4C7B-BAEB-3192D7130E07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BehindTheScenes.Core.Tests", "BehindTheScenes.Core.Tests\BehindTheScenes.Core.Tests.csproj", "{64AE2594-B6FC-49F8-9E37-2D97AFFF5FCD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BehindTheScenes.Core.Tests", "..\BehindTheScenes.Core.Tests\BehindTheScenes.Core.Tests.csproj", "{64AE2594-B6FC-49F8-9E37-2D97AFFF5FCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
