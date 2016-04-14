@@ -10,15 +10,15 @@ namespace BehindTheScenes.Messaging
 
     public class ReceivingCoordinator : IReceivingCoordinator
     {
-        private readonly IRabbitMqCommunicator _communicator;
+        private readonly IRabbitMqChannelOperator _channelOperator;
         private readonly IMessageProcessor _processor;
 
-        public ReceivingCoordinator(IRabbitMqCommunicator communicator, IMessageProcessor processor)
+        public ReceivingCoordinator(IRabbitMqChannelOperator channelOperator, IMessageProcessor processor)
         {
-            _communicator = communicator;
+            _channelOperator = channelOperator;
             _processor = processor;
         }
 
-        public void ActionMessage() => _communicator.Receive(ea => _processor.ProcessMessage(ea));
+        public void ActionMessage() => _channelOperator.ProcessMessage(ea => _processor.ProcessMessage(ea));
     }
 }

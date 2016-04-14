@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using BehindTheScenes.Core.RabbitMq;
+using BehindTheScenes.Extensions;
 using BehindTheScenes.Messaging;
 
 using Microsoft.Practices.Unity;
@@ -19,7 +20,7 @@ namespace BehindTheScenes
                 var exception = a.ExceptionObject as Exception;
 
                 if(exception != null)
-                    Trace.Fail(exception.Message, exception.ToString());
+                    Trace.Fail(exception.Message);
                 else
                     Trace.Fail(string.Join(Environment.NewLine, args));
             };
@@ -31,19 +32,18 @@ namespace BehindTheScenes
                 Task.Factory.StartNew(container.Resolve<IReceivingCoordinator>().ActionMessage);
                 Task.Factory.StartNew(() =>
                 {
-                    var communicator = container.Resolve<IRabbitMqCommunicator>();
-                    foreach(var message in Enumerable.Range(1, 500)
+                    var communicator = container.Resolve<IRabbitMqChannelOperator>();
+                    foreach(var message in Enumerable.Range(1, 50)
                                                      .Select(
-                                                         i => $"Hello World! Message {i}. Sent at [{DateTime.UtcNow}]"))
+                                                         i =>
+                                                             $"Hello World! Message {i} at {DateTime.UtcNow.SignificantTicks()}")
+                        )
                     {
-                        communicator.Send(message);
-                        Console.WriteLine($" SENT \t`{message}`");
+                        communicator.PublishMessage(message);
+                        message.PrintNiceMessage("SENT");
                     }
                 });
             }).Wait();
-
-            Console.WriteLine("Press [Enter] to exit.");
-            Console.ReadLine();
         }
     }
 }

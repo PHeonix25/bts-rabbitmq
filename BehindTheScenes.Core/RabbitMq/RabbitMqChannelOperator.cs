@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text;
 
 using RabbitMQ.Client;
@@ -23,7 +24,7 @@ namespace BehindTheScenes.Core.RabbitMq
             _channel = connection.CreateModel();
             _queueName = queueName;
             var result = _channel.QueueDeclare(queueName, false, false, false, null);
-            Console.WriteLine(
+            Trace.WriteLine(
                 $"Queue OK: `{result.QueueName}` | Consumers: {result.ConsumerCount} | Messages: {result.MessageCount}");
         }
 

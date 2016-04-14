@@ -1,15 +1,21 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
+
+using BehindTheScenes.Extensions;
 
 using RabbitMQ.Client.Events;
 
 namespace BehindTheScenes.Messaging.Processors
 {
+    public interface IMessageProcessor
+    {
+        bool ProcessMessage(BasicDeliverEventArgs message);
+    }
+
     public class GenericMessageProcessor : IMessageProcessor
     {
         public bool ProcessMessage(BasicDeliverEventArgs message)
         {
-            Console.WriteLine($" RECV \t{Encoding.UTF8.GetString(message.Body)}");
+            Encoding.UTF8.GetString(message.Body).PrintNiceMessage("RECV");
             return true;
         }
     }
