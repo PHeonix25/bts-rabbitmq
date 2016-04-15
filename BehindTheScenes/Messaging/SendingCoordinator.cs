@@ -25,6 +25,10 @@ namespace BehindTheScenes.Messaging
         public void SendMany(int howMany)
             => Enumerable.Range(1, howMany)
                          .Select(i => $"Hello World! Message {i} at {DateTime.UtcNow.SignificantTicks()}")
-                         .ForEach(msg => _channelOperator.PublishMessage(msg));
+                         .ForEach(msg =>
+                         {
+                             _channelOperator.PublishMessage(msg);
+                             msg.PrintNiceMessage("SENT");
+                         });
     }
 }

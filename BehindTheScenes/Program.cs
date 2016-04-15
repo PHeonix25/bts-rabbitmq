@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
+using BehindTheScenes.Extensions;
 using BehindTheScenes.Messaging;
 
 using Microsoft.Practices.Unity;
@@ -12,23 +12,28 @@ namespace BehindTheScenes
     {
         static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.UnhandledException += (_, a) =>
-            {
-                var exception = a.ExceptionObject as Exception;
+            AppDomain.CurrentDomain.FirstChanceException += (_, firstChance)
+                => firstChance.Exception.LogToConsole();
 
-                if(exception != null)
-                    Trace.Fail(exception.Message);
-                else
-                    Trace.Fail(string.Join(Environment.NewLine, args));
-            };
+            AppDomain.CurrentDomain.UnhandledException += (_, unhandled) =>
+                (unhandled.ExceptionObject is AggregateException
+                    ? ((AggregateException)unhandled.ExceptionObject).InnerException
+                    : (Exception)unhandled.ExceptionObject)
+                    .LogToConsole();
 
             var container = new UnityContainer().AddNewExtension<Bootstrapper>();
 
-            Task.Factory.StartNew(() =>
+            Action[] actions =
             {
-                Task.Factory.StartNew(() => container.Resolve<ISendingCoordinator>().SendMany(5));
-                Task.Factory.StartNew(() => container.Resolve<IReceivingCoordinator>().ActionMessage());
-            }).Wait();
+                () => { throw new Exception("This exception is unhandled."); },
+                () => { Console.WriteLine("Hello World!"); },
+                () => container.Resolve<IReceivingCoordinator>().ActionMessage(),
+                () => container.Resolve<ISendingCoordinator>().SendMany(5)
+            };
+
+            Parallel.ForEach(actions,
+                new ParallelOptions {MaxDegreeOfParallelism = actions.Length},
+                a => Task.Factory.StartNew(a));
 
             Console.WriteLine("Press [Enter] to exit.");
             Console.ReadLine();

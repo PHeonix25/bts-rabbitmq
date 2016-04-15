@@ -9,8 +9,10 @@ namespace BehindTheScenes.Extensions
             => int.Parse(new string(currentDateTime.Ticks.ToString().Reverse().Skip(2).Take(4).Reverse().ToArray()));
 
         public static void PrintNiceMessage(this string message, string direction)
-            =>
-                Console.WriteLine(
-                    $" {direction} \t\"{message}\" \tat {DateTime.UtcNow.SignificantTicks().ToString().PadLeft(4, '0')}");
+            => Console.WriteLine(
+                $" {direction} \t\"{message}\" \tat {DateTime.UtcNow.SignificantTicks().ToString().PadLeft(4, '0')}");
+
+        public static void LogToConsole(this Exception exception)
+            => Console.WriteLine(">> Exception caught: " + exception.Message);
     }
 }
