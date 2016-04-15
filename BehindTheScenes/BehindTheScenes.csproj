@@ -91,6 +91,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Extensions\DemoExtensions.cs" />
     <Compile Include="Messaging\Processors\GenericMessageProcessor.cs" />
+    <Compile Include="Messaging\SendingCoordinator.cs" />
     <Compile Include="Messaging\ReceivingCoordinator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,6 +108,10 @@
     <ProjectReference Include="..\BehindTheScenes.Core\BehindTheScenes.Core.csproj">
       <Project>{C5DDB733-3FA8-4150-B7E0-F1784197A116}</Project>
       <Name>BehindTheScenes.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BehindTheScenes.Polly\BehindTheScenes.Polly.csproj">
+      <Project>{699BE836-5090-4071-B10F-525B0A9CF592}</Project>
+      <Name>BehindTheScenes.Polly</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
