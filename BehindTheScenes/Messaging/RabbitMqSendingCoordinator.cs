@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 
 using BehindTheScenes.Core.RabbitMq;
 using BehindTheScenes.Extensions;
@@ -29,6 +30,7 @@ namespace BehindTheScenes.Messaging
                          {
                              _channelOperator.PublishMessage(msg);
                              msg.PrintNiceMessage("SENT");
+                             Thread.Sleep(1000);
                          });
     }
 }
