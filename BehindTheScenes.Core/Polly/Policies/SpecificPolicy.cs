@@ -3,7 +3,7 @@
 using Polly;
 using Polly.Retry;
 
-namespace BehindTheScenes.Polly.Policies
+namespace BehindTheScenes.Core.Polly.Policies
 {
     public class SpecificPolicy<TException> : IPolicy where TException : Exception
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace BehindTheScenes.Polly.Policies
+namespace BehindTheScenes.Core.Polly.Policies
 {
     public interface IPolicy
     {
