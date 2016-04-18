@@ -1,41 +1,35 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Threading;
 using System.Threading.Tasks;
-
-using BehindTheScenes.Extensions;
-using BehindTheScenes.Messaging;
-
-using Microsoft.Practices.Unity;
 
 namespace BehindTheScenes
 {
     internal static class Program
     {
+        private static readonly ConcurrentBag<Task> _tasks = new ConcurrentBag<Task>();
+        private static readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+
         private static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.FirstChanceException += (_, firstChance)
-                => firstChance.Exception.LogToConsole();
-
-            AppDomain.CurrentDomain.UnhandledException += (_, unhandled) =>
-                (unhandled.ExceptionObject is AggregateException
-                    ? ((AggregateException)unhandled.ExceptionObject).InnerException
-                    : (Exception)unhandled.ExceptionObject)
-                    .LogToConsole();
-
-            var container = new UnityContainer().AddNewExtension<Bootstrapper>();
+            var cancellationToken = _cancellationTokenSource.Token;
 
             Action[] actions =
             {
-                () => { throw new Exception("This exception should be 'unhandled'."); },
-                () => { Console.WriteLine("Hello Behind the Scenes!"); },
-                () => container.Resolve<IRabbitMqReceivingCoordinator>().ActionMessage(),
-                () => container.Resolve<IRabbitMqSendingCoordinator>().SendMany(5)
+                () => { Console.WriteLine("Hello Behind the Scenes!"); }
             };
 
             Parallel.ForEach(actions,
                 new ParallelOptions {MaxDegreeOfParallelism = actions.Length},
-                a => Task.Factory.StartNew(a));
+                action => _tasks.Add(Task.Factory.StartNew(action, cancellationToken)));
 
-            Console.WriteLine("Press [Enter] to exit.");
+            Console.WriteLine("Press [Enter] to request cancellation.");
+            Console.ReadLine();
+
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
+
+            Console.WriteLine("All tasks have completed, press [Enter] one last time.");
             Console.ReadLine();
         }
     }
