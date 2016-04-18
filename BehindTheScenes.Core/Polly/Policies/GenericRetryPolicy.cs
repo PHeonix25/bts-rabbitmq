@@ -5,21 +5,14 @@ using Polly.Retry;
 
 namespace BehindTheScenes.Core.Polly.Policies
 {
-    public class GenericPolicy : IPolicy
+    public class GenericRetryPolicy : IRetryPolicy
     {
-        public static readonly TimeSpan[] GenericRetryDelays =
-        {
-            TimeSpan.FromSeconds(1),
-            TimeSpan.FromSeconds(2),
-            TimeSpan.FromSeconds(3)
-        };
-
         private readonly RetryPolicy _policy;
 
-        public GenericPolicy()
+        public GenericRetryPolicy()
         {
             _policy = Policy.Handle<Exception>()
-                            .WaitAndRetry(GenericRetryDelays);
+                            .WaitAndRetry(RetryConstants.GenericRetryDelays);
         }
 
         public void ExecuteAction(Action action) => _policy.Execute(action);

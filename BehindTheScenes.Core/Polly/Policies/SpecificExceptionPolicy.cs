@@ -5,7 +5,7 @@ using Polly.Retry;
 
 namespace BehindTheScenes.Core.Polly.Policies
 {
-    public class SpecificPolicy<TException> : IPolicy where TException : Exception
+    public class SpecificPolicy<TException> : IRetryPolicy where TException : Exception
     {
         private readonly RetryPolicy _policy;
 
@@ -13,7 +13,7 @@ namespace BehindTheScenes.Core.Polly.Policies
         {
             _policy = Policy.Handle<TException>()
                             .Or<Exception>()
-                            .WaitAndRetry(GenericPolicy.GenericRetryDelays);
+                            .WaitAndRetry(RetryConstants.GenericRetryDelays);
         }
 
         public void ExecuteAction(Action action) => _policy.Execute(action);
