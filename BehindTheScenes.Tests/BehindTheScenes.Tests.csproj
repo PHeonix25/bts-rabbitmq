@@ -45,12 +45,12 @@
       <HintPath>..\BehindTheScenes\packages\CredentialManagement.1.0.2\lib\net35\CredentialManagement.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FluentAssertions, Version=4.3.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\BehindTheScenes\packages\FluentAssertions.4.3.2\lib\net45\FluentAssertions.dll</HintPath>
+    <Reference Include="FluentAssertions, Version=4.4.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\BehindTheScenes\packages\FluentAssertions.4.4.0\lib\net45\FluentAssertions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FluentAssertions.Core, Version=4.3.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\BehindTheScenes\packages\FluentAssertions.4.3.2\lib\net45\FluentAssertions.Core.dll</HintPath>
+    <Reference Include="FluentAssertions.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\BehindTheScenes\packages\FluentAssertions.4.4.0\lib\net45\FluentAssertions.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Humanizer, Version=2.0.1.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
@@ -66,20 +66,20 @@
       <HintPath>..\BehindTheScenes\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture, Version=3.43.4.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\BehindTheScenes\packages\AutoFixture.3.43.4\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+    <Reference Include="Ploeh.AutoFixture, Version=3.44.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\BehindTheScenes\packages\AutoFixture.3.44.0\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture.AutoMoq, Version=3.43.4.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\BehindTheScenes\packages\AutoFixture.AutoMoq.3.43.4\lib\net40\Ploeh.AutoFixture.AutoMoq.dll</HintPath>
+    <Reference Include="Ploeh.AutoFixture.AutoMoq, Version=3.44.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\BehindTheScenes\packages\AutoFixture.AutoMoq.3.44.0\lib\net40\Ploeh.AutoFixture.AutoMoq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.6.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <HintPath>..\BehindTheScenes\packages\RabbitMQ.Client.3.6.1\lib\net45\RabbitMQ.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RazorEngine, Version=3.8.1.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
-      <HintPath>..\BehindTheScenes\packages\RazorEngine.3.8.1\lib\net45\RazorEngine.dll</HintPath>
+    <Reference Include="RazorEngine, Version=3.8.2.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\BehindTheScenes\packages\RazorEngine.3.8.2\lib\net45\RazorEngine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

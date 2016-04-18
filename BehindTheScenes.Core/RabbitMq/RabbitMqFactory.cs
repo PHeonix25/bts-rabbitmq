@@ -21,7 +21,14 @@ namespace BehindTheScenes.Core.RabbitMq
 
         public void Dispose()
         {
-            _connection.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+                _connection.Dispose();
         }
 
         public IConnection StartConnection() => _connection ?? (_connection = _factory.CreateConnection());
