@@ -8,16 +8,16 @@ using Microsoft.Practices.ObjectBuilder2;
 
 namespace BehindTheScenes.Messaging
 {
-    public interface ISendingCoordinator
+    public interface IRabbitMqSendingCoordinator
     {
         void SendMany(int howMany);
     }
 
-    public class SendingCoordinator : ISendingCoordinator
+    public class RabbitMqSendingCoordinator : IRabbitMqSendingCoordinator
     {
         private readonly IRabbitMqChannelOperator _channelOperator;
 
-        public SendingCoordinator(IRabbitMqChannelOperator channelOperator)
+        public RabbitMqSendingCoordinator(IRabbitMqChannelOperator channelOperator)
         {
             _channelOperator = channelOperator;
         }

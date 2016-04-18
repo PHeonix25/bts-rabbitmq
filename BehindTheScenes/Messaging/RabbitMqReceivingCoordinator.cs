@@ -3,17 +3,17 @@ using BehindTheScenes.Messaging.Processors;
 
 namespace BehindTheScenes.Messaging
 {
-    public interface IReceivingCoordinator
+    public interface IRabbitMqReceivingCoordinator
     {
         void ActionMessage();
     }
 
-    public class ReceivingCoordinator : IReceivingCoordinator
+    public class RabbitMqReceivingCoordinator : IRabbitMqReceivingCoordinator
     {
         private readonly IRabbitMqChannelOperator _channelOperator;
         private readonly IMessageProcessor _processor;
 
-        public ReceivingCoordinator(IRabbitMqChannelOperator channelOperator, IMessageProcessor processor)
+        public RabbitMqReceivingCoordinator(IRabbitMqChannelOperator channelOperator, IMessageProcessor processor)
         {
             _channelOperator = channelOperator;
             _processor = processor;

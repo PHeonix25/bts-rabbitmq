@@ -25,10 +25,10 @@ namespace BehindTheScenes
 
             Action[] actions =
             {
-                () => { throw new Exception("This exception is unhandled."); },
-                () => { Console.WriteLine("Hello World!"); },
-                () => container.Resolve<IReceivingCoordinator>().ActionMessage(),
-                () => container.Resolve<ISendingCoordinator>().SendMany(5)
+                () => { throw new Exception("This exception should be classified 'unhandled'."); },
+                () => { Console.WriteLine("Hello Behind the Scenes!"); },
+                () => container.Resolve<IRabbitMqReceivingCoordinator>().ActionMessage(),
+                () => container.Resolve<IRabbitMqSendingCoordinator>().SendMany(5)
             };
 
             Parallel.ForEach(actions,

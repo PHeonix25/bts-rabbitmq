@@ -18,10 +18,10 @@ namespace BehindTheScenes
             Container.RegisterType<IRabbitMqChannelOperator, RabbitMqChannelOperator>(
                 new InjectionConstructor(typeof(IRabbitMqFactory), AppSettings["RabbitMq_QueueName"]));
 
-            Container.RegisterType<ISendingCoordinator, SendingCoordinator>();
+            Container.RegisterType<IRabbitMqSendingCoordinator, RabbitMqSendingCoordinator>();
 
             Container.RegisterType<IMessageProcessor, GenericMessageProcessor>();
-            Container.RegisterType<IReceivingCoordinator, ReceivingCoordinator>();
+            Container.RegisterType<IRabbitMqReceivingCoordinator, RabbitMqReceivingCoordinator>();
         }
     }
 }
