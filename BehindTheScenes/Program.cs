@@ -8,9 +8,9 @@ using Microsoft.Practices.Unity;
 
 namespace BehindTheScenes
 {
-    internal class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             AppDomain.CurrentDomain.FirstChanceException += (_, firstChance)
                 => firstChance.Exception.LogToConsole();
@@ -25,7 +25,7 @@ namespace BehindTheScenes
 
             Action[] actions =
             {
-                () => { throw new Exception("This exception should be classified 'unhandled'."); },
+                () => { throw new Exception("This exception should be 'unhandled'."); },
                 () => { Console.WriteLine("Hello Behind the Scenes!"); },
                 () => container.Resolve<IRabbitMqReceivingCoordinator>().ActionMessage(),
                 () => container.Resolve<IRabbitMqSendingCoordinator>().SendMany(5)
