@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BehindTheScenes.Extensions
 {
@@ -19,6 +17,5 @@ namespace BehindTheScenes.Extensions
             => Console.WriteLine(
                 $"{direction} \t\"{message}\" at " +
                 $"{DateTime.UtcNow.SignificantTicks().PadLeft(4, '0')}");
-        
     }
 }

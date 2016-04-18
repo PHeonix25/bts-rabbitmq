@@ -8,7 +8,7 @@ namespace BehindTheScenes.Core.Polly.Policies
         {
             TimeSpan.FromSeconds(10),
             TimeSpan.FromSeconds(10),
-            TimeSpan.FromSeconds(10) 
+            TimeSpan.FromSeconds(10)
         };
     }
 }
