@@ -16,7 +16,7 @@ namespace BehindTheScenes.Core.RabbitMq
 
         public RabbitMqFactory(string hostName)
         {
-            _factory = new ConnectionFactory {HostName = hostName};
+            _factory = new ConnectionFactory {AutomaticRecoveryEnabled = true, HostName = hostName};
         }
 
         public void Dispose()

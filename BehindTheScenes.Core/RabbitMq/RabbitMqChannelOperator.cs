@@ -20,12 +20,13 @@ namespace BehindTheScenes.Core.RabbitMq
 
         public RabbitMqChannelOperator(IRabbitMqFactory factory, string queueName)
         {
-            var connection = factory.StartConnection();
-            _channel = connection.CreateModel();
+            _channel = factory.StartConnection().CreateModel();
             _queueName = queueName;
+
             var result = _channel.QueueDeclare(queueName, false, false, false, null);
-            Trace.WriteLine(
-                $"Queue OK: `{result.QueueName}` | Consumers: {result.ConsumerCount} | Messages: {result.MessageCount}");
+            Trace.WriteLine($"Queue OK: `{result.QueueName}` | " +
+                            $"Consumers: {result.ConsumerCount} | " +
+                            $"Messages: {result.MessageCount}");
         }
 
         public void ProcessMessage(Action<BasicDeliverEventArgs> deliveryAction)
