@@ -24,7 +24,7 @@ namespace BehindTheScenes.Core.RabbitMq
             _queueName = queueName;
 
             var result = _channel.QueueDeclare(queueName, false, false, false, null);
-            Trace.WriteLine($"Queue OK: `{result.QueueName}` | " +
+            Trace.WriteLine($"Queue OK: '{result.QueueName}' | " +
                             $"Consumers: {result.ConsumerCount} | " +
                             $"Messages: {result.MessageCount}");
         }

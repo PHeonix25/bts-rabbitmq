@@ -17,9 +17,8 @@ namespace BehindTheScenes.Core.Polly.Policies
                             .WaitAndRetryForever(
                                 retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
                                 (exception, timespan) =>
-                                    Trace.WriteLine(
-                                        $"Retrying due to exception of type {exception.GetType()} " +
-                                        $"after {timespan} or so..."));
+                                    Trace.WriteLine("Retrying operation due to exception of type " +
+                                        $"'{exception.GetType()}' after {timespan.Seconds} seconds."));
         }
 
         public void ExecuteAction(Action action) => _policy.Execute(action);
