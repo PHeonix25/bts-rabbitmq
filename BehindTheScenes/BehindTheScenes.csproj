@@ -48,6 +48,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
@@ -57,6 +58,12 @@
     <Compile Include="Messaging\RabbitMqReceivingCoordinator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebRequester\CarefulWebRequester.cs" />
+    <Compile Include="WebRequester\IWebRequester.cs" />
+    <Compile Include="WebRequester\SimpleWebRequester.cs" />
+    <Compile Include="WebRequester\StackOverflowWebRequester.cs" />
+    <Compile Include="WebRequester\WebRequesterWithInjectedPolicy.cs" />
+    <Compile Include="WebRequester\WebRequesterWithSimpleRetry.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

@@ -1,6 +1,7 @@
 ﻿using BehindTheScenes.Core.RabbitMq;
 using BehindTheScenes.Messaging;
 using BehindTheScenes.Messaging.Processors;
+using BehindTheScenes.WebRequester;
 
 using Microsoft.Practices.Unity;
 
@@ -12,6 +13,9 @@ namespace BehindTheScenes
     {
         protected override void Initialize()
         {
+            Container.RegisterType<IWebRequester, SimpleWebRequester>(
+                new InjectionConstructor("http://google.nl"));
+
             Container.RegisterType<IRabbitMqFactory, RabbitMqFactory>(
                 new InjectionConstructor(AppSettings["RabbitMqHostname"]));
 
