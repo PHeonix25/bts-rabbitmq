@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="Polly\Policies\GenericRetryPolicy.cs" />
     <Compile Include="Polly\Policies\IRetryPolicy.cs" />
-    <Compile Include="Polly\Policies\RetryConstants.cs" />
     <Compile Include="Polly\Policies\SpecificExceptionForeverPolicy.cs" />
     <Compile Include="Polly\Policies\SpecificExceptionPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
