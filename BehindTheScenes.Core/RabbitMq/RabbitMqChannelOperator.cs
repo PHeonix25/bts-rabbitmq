@@ -2,8 +2,12 @@
 using System.Diagnostics;
 using System.Text;
 
+using Polly;
+using Polly.Retry;
+
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using RabbitMQ.Client.Exceptions;
 
 namespace BehindTheScenes.Core.RabbitMq
 {
@@ -17,6 +21,7 @@ namespace BehindTheScenes.Core.RabbitMq
     {
         private readonly IModel _channel;
         private readonly string _queueName;
+        private readonly RetryPolicy _policy;
 
         public RabbitMqChannelOperator(IRabbitMqFactory factory, string queueName)
         {
@@ -27,6 +32,17 @@ namespace BehindTheScenes.Core.RabbitMq
             Trace.WriteLine($"Queue OK: '{result.QueueName}' | " +
                             $"Consumers: {result.ConsumerCount} | " +
                             $"Messages: {result.MessageCount}");
+
+            _policy = Policy.Handle<AlreadyClosedException>()
+                            .Or<ConnectFailureException>()
+                            .WaitAndRetry(new[]
+                                          {
+                                              TimeSpan.FromSeconds(10),
+                                              TimeSpan.FromSeconds(10),
+                                              TimeSpan.FromSeconds(10)
+                                          },
+                                (exception, span) =>
+                                    Trace.WriteLine("RETRYING due to RabbitMQ exception: " + exception.Message));
         }
 
         public void ProcessMessage(Action<BasicDeliverEventArgs> deliveryAction)
@@ -39,7 +55,7 @@ namespace BehindTheScenes.Core.RabbitMq
         public void PublishMessage(string message)
         {
             var bytes = Encoding.UTF8.GetBytes(message);
-            _channel.BasicPublish(string.Empty, _queueName, null, bytes);
+            _policy.Execute(() => _channel.BasicPublish(string.Empty, _queueName, null, bytes));
         }
     }
 }
