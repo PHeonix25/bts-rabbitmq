@@ -53,9 +53,6 @@
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Extensions\DemoExtensions.cs" />
-    <Compile Include="Messaging\Processors\GenericMessageProcessor.cs" />
-    <Compile Include="Messaging\RabbitMqSendingCoordinator.cs" />
-    <Compile Include="Messaging\RabbitMqReceivingCoordinator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRequester\CarefulWebRequester.cs" />
