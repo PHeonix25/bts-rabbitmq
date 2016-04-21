@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 
@@ -20,8 +21,9 @@ namespace BehindTheScenes.WebRequester
             {
                 try
                 {
-                    var response = new HttpClient().GetAsync(_uri).Result;
-                    return $"Requested {_uri}; Response {response.StatusCode}.";
+                    var webRequest = WebRequest.Create(_uri);
+                    using (var response = (HttpWebResponse)webRequest.GetResponse())
+                        return $"Requested {_uri}; Response {response.StatusCode}.";
                 }
                 catch(Exception ex)
                 {

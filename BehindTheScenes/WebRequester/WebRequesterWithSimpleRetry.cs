@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 
 using Polly;
 using Polly.Retry;
@@ -22,7 +21,7 @@ namespace BehindTheScenes.WebRequester
             {
                 var webRequest = WebRequest.Create(_uri);
                 using(var response = (HttpWebResponse)webRequest.GetResponse())
-                    return $"Requested {webRequest.RequestUri}; Response {response.StatusCode}.";
+                    return $"Requested {_uri}; Response {response.StatusCode}.";
             });
     }
 }
