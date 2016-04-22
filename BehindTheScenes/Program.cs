@@ -1,35 +1,40 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Threading;
 using System.Threading.Tasks;
+
+using BehindTheScenes.Extensions;
+using BehindTheScenes.WebRequester;
+
+using Microsoft.Practices.Unity;
 
 namespace BehindTheScenes
 {
     internal static class Program
     {
         private static readonly ConcurrentBag<Task> _tasks = new ConcurrentBag<Task>();
-        private static readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         private static void Main(string[] args)
         {
-            var cancellationToken = _cancellationTokenSource.Token;
+            AppDomain.CurrentDomain.FirstChanceException += (_, firstChance)
+                => firstChance.Exception.LogToConsole();
+
+            var container = new UnityContainer().AddNewExtension<Bootstrapper>();
 
             Action[] actions =
             {
-                () => { Console.WriteLine("Hello Behind the Scenes!"); }
+                () => { Console.WriteLine("Hello Behind the Scenes!"); },
+                () => Console.WriteLine(container.Resolve<IWebRequester>().MakeRequest()),
             };
 
             Parallel.ForEach(actions,
                 new ParallelOptions {MaxDegreeOfParallelism = actions.Length},
-                action => _tasks.Add(Task.Factory.StartNew(action, cancellationToken)));
+                action => _tasks.Add(Task.Factory.StartNew(action)));
 
-            Console.WriteLine("Press [Enter] to request cancellation.");
             Console.ReadLine();
 
-            _cancellationTokenSource.Cancel();
-            _cancellationTokenSource.Dispose();
+            _tasks.WaitForAndPrintStatusOfAllTasks();
 
-            Console.WriteLine("All tasks have completed, press [Enter] one last time.");
+            Console.WriteLine("Press [Enter] to exit.");
             Console.ReadLine();
         }
     }

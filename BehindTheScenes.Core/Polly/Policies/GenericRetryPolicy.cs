@@ -22,6 +22,8 @@ namespace BehindTheScenes.Core.Polly.Policies
                             .WaitAndRetry(_genericRetryDelays);
         }
 
+        public RetryPolicy GetPolicy => _policy;
+
         public void ExecuteAction(Action action) => _policy.Execute(action);
 
         public T ExecuteFunc<T>(Func<T> func) => _policy.Execute(func);
