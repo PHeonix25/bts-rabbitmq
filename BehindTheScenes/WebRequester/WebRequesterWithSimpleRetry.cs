@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 
 using Polly;
 using Polly.Retry;
@@ -13,7 +14,8 @@ namespace BehindTheScenes.WebRequester
         public WebRequesterWithSimpleRetry(string uri)
         {
             _uri = uri;
-            _retryPolicy = Policy.Handle<WebException>().Retry(3);
+            _retryPolicy = Policy.Handle<WebException>().Retry(3,
+                (exception, i) => Console.WriteLine($"{exception.GetType()} thrown, retry count {i}"));
         }
 
         public string MakeRequest()

@@ -1,6 +1,11 @@
-﻿using BehindTheScenes.WebRequester;
+﻿using System;
+using System.Net;
+
+using BehindTheScenes.WebRequester;
 
 using Microsoft.Practices.Unity;
+
+using Polly;
 
 namespace BehindTheScenes
 {
@@ -8,8 +13,13 @@ namespace BehindTheScenes
     {
         protected override void Initialize()
         {
-            Container.RegisterType<IWebRequester, SimpleWebRequester>(
-                new InjectionConstructor("http://google.nl"));
+            var retryPolicy = Policy.Handle<WebException>().WaitAndRetry(3,
+                (i => TimeSpan.FromSeconds(Math.Pow(i, 2))),
+                (exception, timespan) =>
+                    Console.WriteLine($"{exception.GetType()} thrown, will retry in {timespan}"));
+            
+            Container.RegisterType<IWebRequester, WebRequesterWithPolly>(
+                new InjectionConstructor("http://google.nl", retryPolicy));
         }
     }
 }

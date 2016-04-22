@@ -3,6 +3,9 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
 using BehindTheScenes.Extensions;
+using BehindTheScenes.WebRequester;
+
+using Microsoft.Practices.Unity;
 
 namespace BehindTheScenes
 {
@@ -12,9 +15,15 @@ namespace BehindTheScenes
 
         private static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.FirstChanceException += (_, firstChance)
+                => firstChance.Exception.LogToConsole();
+
+            var container = new UnityContainer().AddNewExtension<Bootstrapper>();
+
             Action[] actions =
             {
-                () => { Console.WriteLine("Hello Behind the Scenes!"); }
+                () => { Console.WriteLine("Hello Behind the Scenes!"); },
+                () => Console.WriteLine(container.Resolve<IWebRequester>().MakeRequest()),
             };
 
             Parallel.ForEach(actions,
